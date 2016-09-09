@@ -30,6 +30,9 @@ gem 'bcrypt', '~> 3.1.7'
 #Seed dump to export data in database
 gem 'seed_dump'
 
+#Auto loading
+gem "activerecord-import", ">= 0.2.0"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

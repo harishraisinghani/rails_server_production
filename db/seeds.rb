@@ -1,70 +1,70 @@
-Alert.create!([
-  {false_alarm: nil, user_generated: true, state: "active", dispatcher_id: 1, patroller_id: 1, ping_id: 1},
-  {false_alarm: nil, user_generated: false, state: "active", dispatcher_id: 1, patroller_id: 1, ping_id: 2},
-  {false_alarm: nil, user_generated: true, state: "active", dispatcher_id: 1, patroller_id: 2, ping_id: 3},
-  {false_alarm: nil, user_generated: false, state: "active", dispatcher_id: 1, patroller_id: 3, ping_id: 4},
-  {false_alarm: true, user_generated: true, state: "active", dispatcher_id: 1, patroller_id: 1, ping_id: 5},
-  {false_alarm: true, user_generated: false, state: "active", dispatcher_id: 1, patroller_id: 1, ping_id: 6},
-  {false_alarm: nil, user_generated: false, state: "inactive", dispatcher_id: 1, patroller_id: 2, ping_id: 7},
-  {false_alarm: nil, user_generated: true, state: "inactive", dispatcher_id: 1, patroller_id: 3, ping_id: 8}
+Alert.import([:false_alarm, :user_generated, :state, :dispatcher_id, :patroller_id, :ping_id], [
+  [nil, true, "active", 1, 1, 1],
+  [nil, false, "active", 1, 1, 2],
+  [nil, true, "active", 1, 2, 3],
+  [nil, false, "active", 1, 3, 4],
+  [true, true, "active", 1, 1, 5],
+  [true, false, "active", 1, 1, 6],
+  [nil, false, "inactive", 1, 2, 7],
+  [nil, true, "inactive", 1, 3, 8]
 ])
-Checkin.create!([
-  {checkout: "2016-09-09 18:40:18", destination_id: 4, skier_id: 1},
-  {checkout: "2016-09-09 18:40:18", destination_id: 4, skier_id: 2},
-  {checkout: "2016-09-09 18:40:18", destination_id: 4, skier_id: 3},
-  {checkout: "2016-09-09 18:40:18", destination_id: 4, skier_id: 4},
-  {checkout: "2016-09-09 18:40:18", destination_id: 4, skier_id: 5},
-  {checkout: "2016-09-09 18:40:18", destination_id: 4, skier_id: 6},
-  {checkout: "2016-09-09 18:40:18", destination_id: 1, skier_id: 1},
-  {checkout: "2016-09-09 18:40:18", destination_id: 1, skier_id: 2},
-  {checkout: "2016-09-09 18:40:18", destination_id: 1, skier_id: 4},
-  {checkout: nil, destination_id: 4, skier_id: 2},
-  {checkout: nil, destination_id: 4, skier_id: 3},
-  {checkout: nil, destination_id: 4, skier_id: 4},
-  {checkout: nil, destination_id: 4, skier_id: 5}
+Checkin.import([:checkout, :destination_id, :skier_id], [
+  ["2016-09-09 18:40:18", 4, 1],
+  ["2016-09-09 18:40:18", 4, 2],
+  ["2016-09-09 18:40:18", 4, 3],
+  ["2016-09-09 18:40:18", 4, 4],
+  ["2016-09-09 18:40:18", 4, 5],
+  ["2016-09-09 18:40:18", 4, 6],
+  ["2016-09-09 18:40:18", 1, 1],
+  ["2016-09-09 18:40:18", 1, 2],
+  ["2016-09-09 18:40:18", 1, 4],
+  [nil, 4, 2],
+  [nil, 4, 3],
+  [nil, 4, 4],
+  [nil, 4, 5]
 ])
-Destination.create!([
-  {name: "Whistler/Blackcomb", lat: 50.0, long: -123.0, radius: 5000.0},
-  {name: "Big White", lat: 49.735, long: -118.944, radius: 3000.0},
-  {name: "Silver Star", lat: 50.375, long: -119.048, radius: 2500.0},
-  {name: "Lighthouse Ski Resort", lat: 49.282, long: -123.10827, radius: 200.0}
+Destination.import([:name, :lat, :long, :radius], [
+  ["Whistler/Blackcomb", 50.0, -123.0, 5000.0],
+  ["Big White", 49.735, -118.944, 3000.0],
+  ["Silver Star", 50.375, -119.048, 2500.0],
+  ["Lighthouse Ski Resort", 49.282, -123.10827, 200.0]
 ])
-Dispatcher.create!([
-  {firstname: "Rodney", lastname: "Farva", username: "ramrod", password_digest: "$2a$10$2xOmNGEimGG07lQfvNIPNO.HsfbYV3wuUFohCZU4vgoxfGklfR1mW", on_shift: true, destination_id: 4},
-  {firstname: "Larry", lastname: "Johnson", username: "larjon", password_digest: "$2a$10$fQ../6HC6a2UBs3lVnUcpuwFr31epFQsF7RZP3exRIdmt8QtKq09m", on_shift: false, destination_id: 4}
+Dispatcher.import([:firstname, :lastname, :username, :password_digest, :on_shift, :destination_id], [
+  ["Rodney", "Farva", "ramrod", "$2a$10$2xOmNGEimGG07lQfvNIPNO.HsfbYV3wuUFohCZU4vgoxfGklfR1mW", true, 4],
+  ["Larry", "Johnson", "larjon", "$2a$10$fQ../6HC6a2UBs3lVnUcpuwFr31epFQsF7RZP3exRIdmt8QtKq09m", false, 4]
 ])
-Group.create!([
-  {name: "Lighthouse Skiers", admin_id: 3},
-  {name: "Norway Ski Team", admin_id: 4}
+Group.import([:name, :admin_id], [
+  ["Lighthouse Skiers", 3],
+  ["Norway Ski Team", 4]
 ])
-Membership.create!([
-  {group_id: 1, skier_id: 1},
-  {group_id: 1, skier_id: 2},
-  {group_id: 1, skier_id: 3},
-  {group_id: 2, skier_id: 4}
+Membership.import([:group_id, :skier_id], [
+  [1, 1],
+  [1, 2],
+  [1, 3],
+  [2, 4]
 ])
-Patroller.create!([
-  {firstname: "MacIntyre", lastname: "Womack", username: "mac", password_digest: "$2a$10$7uCD5RZbX2.n85QuDzPLNeAvQ2YDRLSwPYGxN1Ch7QPSUdEaZzAr.", on_shift: true, destination_id: 4},
-  {firstname: "Jeff", lastname: "Foster", username: "foster", password_digest: "$2a$10$0nRaehqwOTjVWPwlR8I2xeEf86pCXoumYdmnDuLVXOFa8mXhKJ1/m", on_shift: false, destination_id: 4},
-  {firstname: "Robert", lastname: "Roto", username: "rabbit", password_digest: "$2a$10$N/ZMGAmVGlmVploRFjjDKet5odJjgGO91k17qZaTd9InLW.Yq/pai", on_shift: true, destination_id: 1},
-  {firstname: "John", lastname: "O'Hagen", username: "captain", password_digest: "$2a$10$o4NTNtI5YCbZUiFXGzUL9eGDpNgx9/arQLV9E9pZ4nCwLcvg1UVf6", on_shift: false, destination_id: 1},
-  {firstname: "Default", lastname: "Default", username: "unassigned", password_digest: "$2a$10$oZouNrP6tDwmpPuz4Sa3CuLQTR7DNj/IfAvs1CQm4UDapTfQz3jeK", on_shift: true, destination_id: 4}
+Patroller.import([:firstname, :lastname, :username, :password_digest, :on_shift, :destination_id], [
+  ["MacIntyre", "Womack", "mac", "$2a$10$7uCD5RZbX2.n85QuDzPLNeAvQ2YDRLSwPYGxN1Ch7QPSUdEaZzAr.", true, 4],
+  ["Jeff", "Foster", "foster", "$2a$10$0nRaehqwOTjVWPwlR8I2xeEf86pCXoumYdmnDuLVXOFa8mXhKJ1/m", false, 4],
+  ["Robert", "Roto", "rabbit", "$2a$10$N/ZMGAmVGlmVploRFjjDKet5odJjgGO91k17qZaTd9InLW.Yq/pai", true, 1],
+  ["John", "O'Hagen", "captain", "$2a$10$o4NTNtI5YCbZUiFXGzUL9eGDpNgx9/arQLV9E9pZ4nCwLcvg1UVf6", false, 1],
+  ["Default", "Default", "unassigned", "$2a$10$oZouNrP6tDwmpPuz4Sa3CuLQTR7DNj/IfAvs1CQm4UDapTfQz3jeK", true, 4]
 ])
-Ping.create!([
-  {lat: 49.272, long: -123.11827, checkin_id: 10},
-  {lat: 49.27159, long: -123.11527, checkin_id: 11},
-  {lat: 49.2801, long: -123.12027, checkin_id: 12},
-  {lat: 49.28191, long: -123.10927, checkin_id: 13},
-  {lat: 49.28188, long: -123.11127, checkin_id: 10},
-  {lat: 49.27691, long: -123.10727, checkin_id: 11},
-  {lat: 49.28175, long: -123.10627, checkin_id: 2},
-  {lat: 49.28209, long: -123.10527, checkin_id: 1}
+Ping.import([:lat, :long, :checkin_id], [
+  [49.272, -123.11827, 10],
+  [49.27159, -123.11527, 11],
+  [49.2801, -123.12027, 12],
+  [49.28191, -123.10927, 13],
+  [49.28188, -123.11127, 10],
+  [49.27691, -123.10727, 11],
+  [49.28175, -123.10627, 2],
+  [49.28209, -123.10527, 1]
 ])
-Skier.create!([
-  {firstname: "Jacob", lastname: "Robinson", email: "jacob@example.com", password_digest: "$2a$10$rcZXrZucDmkCzkHeynN6pOAV7TkH72PFadW.I5eJKsPaCJweGckPC", ec1: "Larry", ec1phone: "6041112222", ec2: "", ec2phone: "", current_checkin_id: nil, username: "jacob", profile_picture: "", phone: "2505550155"},
-  {firstname: "Simon", lastname: "Edmondson", email: "simon@example.com", password_digest: "$2a$10$cTPab6w7VD4HoPnC0I5bdOVQdQ56V.puq5X11W/Ezx1txvjSfFOvu", ec1: "Larry", ec1phone: "6045555555", ec2: "", ec2phone: "", current_checkin_id: 5, username: "simon", profile_picture: "", phone: "6044444444"},
-  {firstname: "Harish", lastname: "Raisinghani", email: "harish@example.com", password_digest: "$2a$10$FS5rOlZ5cOC72eKxIkS4sO2LGWfVkR4A9MJFVkCZRkmTsb5TeBe/C", ec1: "Larry", ec1phone: "6043333333", ec2: "", ec2phone: "", current_checkin_id: 6, username: "harish", profile_picture: "", phone: "2505550157"},
-  {firstname: "Silje", lastname: "Norendal", email: "silje@example.com", password_digest: "$2a$10$li2i6.8QUJiwfL0NCgYzQuntZ2.hEMy2J.T7KHMc5xU6.OtQ4LcCi", ec1: "Larry", ec1phone: "6045555555", ec2: "", ec2phone: "", current_checkin_id: 7, username: "silje", profile_picture: "", phone: "2505550158"},
-  {firstname: "Bode", lastname: "Miller", email: "bode@example.com", password_digest: "$2a$10$8AWbqsPAyaw0hektpoy6hOtAI8nisriUurMjqFToFdeMfkMHHyY3S", ec1: "Larry", ec1phone: "6045555555", ec2: "", ec2phone: "", current_checkin_id: 8, username: "bmiller", profile_picture: "", phone: "2505550159"},
-  {firstname: "Nancy", lastname: "Greene", email: "nancy@example.com", password_digest: "$2a$10$pXF54wipa5VXKDtYP5sWDusmnZOwzEKEafFrckdQ6xurbAv6posnq", ec1: "Larry", ec1phone: "6045555555", ec2: "", ec2phone: "", current_checkin_id: nil, username: "nancy", profile_picture: "", phone: "2505550160"}
+Skier.import([:firstname, :lastname, :email, :password_digest, :ec1, :ec1phone, :ec2, :ec2phone, :current_checkin_id, :username, :profile_picture, :phone], [
+  ["Jacob", "Robinson", "jacob@example.com", "$2a$10$rcZXrZucDmkCzkHeynN6pOAV7TkH72PFadW.I5eJKsPaCJweGckPC", "Larry", "6041112222", "", "", nil, "jacob", "", "2505550155"],
+  ["Simon", "Edmondson", "simon@example.com", "$2a$10$cTPab6w7VD4HoPnC0I5bdOVQdQ56V.puq5X11W/Ezx1txvjSfFOvu", "Larry", "6045555555", "", "", 5, "simon", "", "6044444444"],
+  ["Harish", "Raisinghani", "harish@example.com", "$2a$10$FS5rOlZ5cOC72eKxIkS4sO2LGWfVkR4A9MJFVkCZRkmTsb5TeBe/C", "Larry", "6043333333", "", "", 6, "harish", "", "2505550157"],
+  ["Silje", "Norendal", "silje@example.com", "$2a$10$li2i6.8QUJiwfL0NCgYzQuntZ2.hEMy2J.T7KHMc5xU6.OtQ4LcCi", "Larry", "6045555555", "", "", 7, "silje", "", "2505550158"],
+  ["Bode", "Miller", "bode@example.com", "$2a$10$8AWbqsPAyaw0hektpoy6hOtAI8nisriUurMjqFToFdeMfkMHHyY3S", "Larry", "6045555555", "", "", 8, "bmiller", "", "2505550159"],
+  ["Nancy", "Greene", "nancy@example.com", "$2a$10$pXF54wipa5VXKDtYP5sWDusmnZOwzEKEafFrckdQ6xurbAv6posnq", "Larry", "6045555555", "", "", nil, "nancy", "", "2505550160"]
 ])
