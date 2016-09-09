@@ -61,6 +61,18 @@ class AlertsController < ApplicationController
     end
   end
 
+  def request_assistance
+    requested_alert_ping = Ping.create(checkin_id: Skier.find(params[:id]).current_checkin_id, lat: 49, long:-122) # Need to change based on lat/long passed in GET 'skiers/:id/request_alert' AJAX )
+
+    requested_alert = Alert.new(user_generated: true, state: "active",dispatcher_id: Dispatcher.find_by(on_shift: true, destination_id: requested_alert_ping.checkin.destination.id).id, ping_id: requested_alert_ping.id, patroller_id: 1)
+
+    if requested_alert.save
+      render json: "help is on the way"
+    else
+      render json: requested_alert.errors
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_alert

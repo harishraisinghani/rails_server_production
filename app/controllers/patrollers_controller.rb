@@ -61,6 +61,19 @@ class PatrollersController < ApplicationController
     end
   end
 
+  #Custom methods
+  def receive_alert
+    alert = Alert.find_by(patroller_id: params[:id], state: 'active') 
+    skier_name = alert.ping.checkin.skier.firstname + " " + alert.ping.checkin.skier.lastname
+    @person = 
+    { 
+      lat: alert.ping.lat,
+      long: alert.ping.long,
+      name: skier_name
+    }
+    render json: @person
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patroller

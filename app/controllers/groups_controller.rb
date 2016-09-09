@@ -61,6 +61,20 @@ class GroupsController < ApplicationController
     end
   end
 
+  #Obtains the current lat/long and names of all skiers in a particular group
+  def current_location
+    group_skiers = Group.find(params[:id]).skiers
+    @names = []
+    @coordinates = []
+    group_skiers.each do |skier|
+      if skier.current_checkin_id
+        @coordinates << skier.pings.last
+        @names << skier.firstname + " " + skier.lastname
+      end
+    end
+    render json: [@coordinates, @names]
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group

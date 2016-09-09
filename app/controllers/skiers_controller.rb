@@ -61,6 +61,43 @@ class SkiersController < ApplicationController
     end
   end
 
+  #Custom Skier methods
+
+  #Get all the pings associated with a specific skier. This will be used for logic to determine if alert is raised and last ping lat/long data.
+  def skier_pings_index 
+    @pings = Skier.find(params[:id]).pings
+    render json: @pings 
+  end
+
+  #Skier checks out closing the checkin object
+  def skier_checkout
+    current_skier = Skier.find(params[:id])
+    checkin_to_update = Checkin.find(current_skier.current_checkin_id) 
+    checkin_to_update.checkout= Time.now
+    current_skier.current_checkin_id = nil
+    
+    if checkin_update.save && current_skier.save
+      render json: "Current user successfully checked out"
+    end
+  end
+
+  #Any skier can create a new group. This will be a post request. The URL post will contain email addresses of the users that memberships are created for. 
+  def new_group
+    @membership_ids = []
+    group = Group.create(admin_id: params[:id], name: params[:name])
+
+    #Create admin membership
+    admin_membership = Membership.create(skier_id: params[:id], group_id: group.id)
+
+    params.each do |key,value|
+      if /email/.match(key)
+        member = Membership.create(skier_id: Skier.find_by(email: value).id, group_id: group.id)
+        @membership_ids << member.id
+      end
+    end
+    render json: @membership_ids
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_skier

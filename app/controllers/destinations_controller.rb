@@ -61,6 +61,30 @@ class DestinationsController < ApplicationController
     end
   end
 
+  def get_all_active_alerts
+    all_current_checkins = Destination.find(params[:id]).checkins.where(checkout: nil)
+    @active_alerts = []
+    @alert_pings = []
+    all_current_checkins.each do |checkin|
+      pings = checkin.pings
+      pings.each do |ping|
+        temp_alert = Alert.find_by(ping_id: ping.id, state: 'active')
+        if temp_alert
+          @active_alerts << temp_alert
+          @alert_pings << ping
+        end
+      end
+    end
+    render json: [@active_alerts, @alert_pings]
+  end
+
+  def get_all_recent_pings
+    @recent_pings = []
+    destination_checkins = Checkin.where(destination_id: Dispatcher.find(session[:dispatcher_id]).destination_id)
+    destination_checkins.each { |checkin| @recent_pings << checkin.pings.last }
+    render json: @recent_pings
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_destination
