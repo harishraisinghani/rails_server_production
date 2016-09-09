@@ -1,0 +1,2 @@
+json.extract! skier, :id, :firstname, :lastname, :email, :ec1, :ec1phone, :ec2, :ec2phone, :current_checkin_id, :username, :profile_picture, :phone, :created_at, :updated_at
+json.url skier_url(skier, format: :json)

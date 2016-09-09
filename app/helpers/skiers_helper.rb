@@ -1,0 +1,2 @@
+module SkiersHelper
+end

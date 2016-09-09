@@ -1,0 +1,1 @@
+json.partial! "patrollers/patroller", patroller: @patroller

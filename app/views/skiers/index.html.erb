@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Skiers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Ec1</th>
+      <th>Ec1phone</th>
+      <th>Ec2</th>
+      <th>Ec2phone</th>
+      <th>Current checkin</th>
+      <th>Username</th>
+      <th>Profile picture</th>
+      <th>Phone</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @skiers.each do |skier| %>
+      <tr>
+        <td><%= skier.firstname %></td>
+        <td><%= skier.lastname %></td>
+        <td><%= skier.email %></td>
+        <td><%= skier.ec1 %></td>
+        <td><%= skier.ec1phone %></td>
+        <td><%= skier.ec2 %></td>
+        <td><%= skier.ec2phone %></td>
+        <td><%= skier.current_checkin_id %></td>
+        <td><%= skier.username %></td>
+        <td><%= skier.profile_picture %></td>
+        <td><%= skier.phone %></td>
+        <td><%= link_to 'Show', skier %></td>
+        <td><%= link_to 'Edit', edit_skier_path(skier) %></td>
+        <td><%= link_to 'Destroy', skier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Skier', new_skier_path %>

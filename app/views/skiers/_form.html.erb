@@ -1,0 +1,82 @@
+<%= form_for(skier) do |f| %>
+  <% if skier.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(skier.errors.count, "error") %> prohibited this skier from being saved:</h2>
+
+      <ul>
+      <% skier.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :firstname %>
+    <%= f.text_field :firstname %>
+  </div>
+
+  <div class="field">
+    <%= f.label :lastname %>
+    <%= f.text_field :lastname %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ec1 %>
+    <%= f.text_field :ec1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ec1phone %>
+    <%= f.text_field :ec1phone %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ec2 %>
+    <%= f.text_field :ec2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ec2phone %>
+    <%= f.text_field :ec2phone %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_checkin_id %>
+    <%= f.number_field :current_checkin_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+  </div>
+
+  <div class="field">
+    <%= f.label :profile_picture %>
+    <%= f.text_field :profile_picture %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone %>
+    <%= f.text_field :phone %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

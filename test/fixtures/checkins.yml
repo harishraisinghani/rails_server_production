@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  checkout: 2016-09-09 06:48:16
+  destination: one
+  skier: one
+
+two:
+  checkout: 2016-09-09 06:48:16
+  destination: two
+  skier: two

@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Firstname:</strong>
+  <%= @skier.firstname %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @skier.lastname %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @skier.email %>
+</p>
+
+<p>
+  <strong>Ec1:</strong>
+  <%= @skier.ec1 %>
+</p>
+
+<p>
+  <strong>Ec1phone:</strong>
+  <%= @skier.ec1phone %>
+</p>
+
+<p>
+  <strong>Ec2:</strong>
+  <%= @skier.ec2 %>
+</p>
+
+<p>
+  <strong>Ec2phone:</strong>
+  <%= @skier.ec2phone %>
+</p>
+
+<p>
+  <strong>Current checkin:</strong>
+  <%= @skier.current_checkin_id %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @skier.username %>
+</p>
+
+<p>
+  <strong>Profile picture:</strong>
+  <%= @skier.profile_picture %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @skier.phone %>
+</p>
+
+<%= link_to 'Edit', edit_skier_path(@skier) %> |
+<%= link_to 'Back', skiers_path %>

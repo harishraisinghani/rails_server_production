@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Patrollers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Username</th>
+      <th>On shift</th>
+      <th>Destination</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @patrollers.each do |patroller| %>
+      <tr>
+        <td><%= patroller.firstname %></td>
+        <td><%= patroller.lastname %></td>
+        <td><%= patroller.username %></td>
+        <td><%= patroller.on_shift %></td>
+        <td><%= patroller.destination %></td>
+        <td><%= link_to 'Show', patroller %></td>
+        <td><%= link_to 'Edit', edit_patroller_path(patroller) %></td>
+        <td><%= link_to 'Destroy', patroller, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Patroller', new_patroller_path %>

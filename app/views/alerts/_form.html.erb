@@ -1,0 +1,47 @@
+<%= form_for(alert) do |f| %>
+  <% if alert.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(alert.errors.count, "error") %> prohibited this alert from being saved:</h2>
+
+      <ul>
+      <% alert.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :false_alarm %>
+    <%= f.check_box :false_alarm %>
+  </div>
+
+  <div class="field">
+    <%= f.label :user_generated %>
+    <%= f.check_box :user_generated %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dispatcher_id %>
+    <%= f.text_field :dispatcher_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :patroller_id %>
+    <%= f.text_field :patroller_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ping_id %>
+    <%= f.text_field :ping_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

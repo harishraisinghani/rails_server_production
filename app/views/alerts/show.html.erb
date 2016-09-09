@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>False alarm:</strong>
+  <%= @alert.false_alarm %>
+</p>
+
+<p>
+  <strong>User generated:</strong>
+  <%= @alert.user_generated %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @alert.state %>
+</p>
+
+<p>
+  <strong>Dispatcher:</strong>
+  <%= @alert.dispatcher %>
+</p>
+
+<p>
+  <strong>Patroller:</strong>
+  <%= @alert.patroller %>
+</p>
+
+<p>
+  <strong>Ping:</strong>
+  <%= @alert.ping %>
+</p>
+
+<%= link_to 'Edit', edit_alert_path(@alert) %> |
+<%= link_to 'Back', alerts_path %>

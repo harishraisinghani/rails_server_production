@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Firstname:</strong>
+  <%= @patroller.firstname %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @patroller.lastname %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @patroller.username %>
+</p>
+
+<p>
+  <strong>On shift:</strong>
+  <%= @patroller.on_shift %>
+</p>
+
+<p>
+  <strong>Destination:</strong>
+  <%= @patroller.destination %>
+</p>
+
+<%= link_to 'Edit', edit_patroller_path(@patroller) %> |
+<%= link_to 'Back', patrollers_path %>

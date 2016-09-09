@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @destination.name %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @destination.lat %>
+</p>
+
+<p>
+  <strong>Long:</strong>
+  <%= @destination.long %>
+</p>
+
+<p>
+  <strong>Radius:</strong>
+  <%= @destination.radius %>
+</p>
+
+<%= link_to 'Edit', edit_destination_path(@destination) %> |
+<%= link_to 'Back', destinations_path %>

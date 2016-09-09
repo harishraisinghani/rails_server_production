@@ -1,0 +1,52 @@
+<%= form_for(patroller) do |f| %>
+  <% if patroller.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(patroller.errors.count, "error") %> prohibited this patroller from being saved:</h2>
+
+      <ul>
+      <% patroller.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :firstname %>
+    <%= f.text_field :firstname %>
+  </div>
+
+  <div class="field">
+    <%= f.label :lastname %>
+    <%= f.text_field :lastname %>
+  </div>
+
+  <div class="field">
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="field">
+    <%= f.label :on_shift %>
+    <%= f.check_box :on_shift %>
+  </div>
+
+  <div class="field">
+    <%= f.label :destination_id %>
+    <%= f.text_field :destination_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

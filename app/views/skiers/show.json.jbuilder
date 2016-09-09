@@ -1,0 +1,1 @@
+json.partial! "skiers/skier", skier: @skier

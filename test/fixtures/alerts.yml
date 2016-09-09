@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  false_alarm: false
+  user_generated: false
+  state: MyString
+  dispatcher: one
+  patroller: one
+  ping: one
+
+two:
+  false_alarm: false
+  user_generated: false
+  state: MyString
+  dispatcher: two
+  patroller: two
+  ping: two

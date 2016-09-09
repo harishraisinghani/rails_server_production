@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Firstname:</strong>
+  <%= @dispatcher.firstname %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @dispatcher.lastname %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @dispatcher.username %>
+</p>
+
+<p>
+  <strong>On shift:</strong>
+  <%= @dispatcher.on_shift %>
+</p>
+
+<p>
+  <strong>Destination:</strong>
+  <%= @dispatcher.destination %>
+</p>
+
+<%= link_to 'Edit', edit_dispatcher_path(@dispatcher) %> |
+<%= link_to 'Back', dispatchers_path %>
