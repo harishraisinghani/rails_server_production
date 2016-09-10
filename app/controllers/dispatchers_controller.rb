@@ -28,7 +28,8 @@ class DispatchersController < ApplicationController
 
     respond_to do |format|
       if @dispatcher.save
-        format.html { redirect_to @dispatcher, notice: 'Dispatcher was successfully created.' }
+        session[:dispatcher_id] = @dispatcher.id
+        format.html { redirect_to main_path, notice: 'Dispatcher was successfully created.' }
         format.json { render :show, status: :created, location: @dispatcher }
       else
         format.html { render :new }
@@ -63,7 +64,11 @@ class DispatchersController < ApplicationController
 
   #Custom methods
   def main
-    @dispatcher = Dispatcher.find(session[:dispatcher_id])
+    if current_dispatcher
+      @dispatcher = Dispatcher.find(session[:dispatcher_id])
+    else
+      redirect_to new_session_path, notice: 'You are not logged in'
+    end
   end
 
   private

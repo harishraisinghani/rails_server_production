@@ -1,24 +1,8 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#Importing and exporting seed data
+This server has the ability to import and export all seed data to/from the database. Simply use the following:
+   Export data: rails db:seed:dump IMPORT=true
+   Import data: rails db:seed
 
-Things you may want to cover:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

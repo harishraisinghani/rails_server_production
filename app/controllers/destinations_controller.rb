@@ -65,6 +65,7 @@ class DestinationsController < ApplicationController
     all_current_checkins = Destination.find(params[:id]).checkins.where(checkout: nil)
     @active_alerts = []
     @alert_pings = []
+    @skier_names = []
     all_current_checkins.each do |checkin|
       pings = checkin.pings
       pings.each do |ping|
@@ -72,10 +73,11 @@ class DestinationsController < ApplicationController
         if temp_alert
           @active_alerts << temp_alert
           @alert_pings << ping
+          @skier_names << temp_alert.ping.checkin.skier.firstname + ' ' + temp_alert.ping.checkin.skier.lastname
         end
       end
     end
-    render json: [@active_alerts, @alert_pings]
+    render json: [@active_alerts, @alert_pings, @skier_names]
   end
 
   def get_all_recent_pings
