@@ -71,10 +71,9 @@ class DestinationsController < ApplicationController
       pings.each do |ping|
         temp_alert = Alert.find_by(ping_id: ping.id, state: 'active')
         if temp_alert
-          full_name = temp_alert.ping.checkin.skier.firstname + ' ' + temp_alert.ping.checkin.skier.lastname
           @active_alerts << temp_alert
           @alert_pings << ping
-          @skier_names << full_name
+          @skier_names << temp_alert.ping.checkin.skier.firstname + ' ' + temp_alert.ping.checkin.skier.lastname
         end
       end
     end
