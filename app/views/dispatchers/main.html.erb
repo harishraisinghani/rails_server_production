@@ -1,1 +1,22 @@
-<h1><%=@dispatcher.username %></h1>
+<h1>Welcome to dispatch <%=@dispatcher.username %>.</h1>
+
+<iframe class=".dispatch-view"
+  width="1000"
+  height="400"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA9CNv2ZXkriArWSZvODA5o3Pmx86LEyDA
+    &q=Space+Needle,Seattle+WA" allowfullscreen>
+</iframe>
+
+
+<script>
+$(function(){
+  getAlerts();
+  // setInterval(getAlerts, 5000);
+
+  // getPings();
+  // setInterval(getPings, 5000);
+})
+</script>
+
+
