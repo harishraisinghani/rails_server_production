@@ -1,3 +1,29 @@
 // Place all the styles related to the Dispatchers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$primary-background-color: #4A4A4A;
+
+.dispatcher-login-top {
+  background-color: $primary-background-color;
+  height: 75px;
+}
+
+.dispatcher-login-bottom {
+  background-color: $primary-background-color;
+  height: 75px;
+}
+
+.container {
+  background-image: url("/images/dispatch.png"); background-size: cover;
+}
+
+.dispatcher-login-center {
+  height: 750px;
+}
+
+#login-form {
+  margin-top: 1cm;
+}
+
+

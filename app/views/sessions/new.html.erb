@@ -1,12 +1,35 @@
-<h1>Log In</h1>
-<%= form_tag sessions_path do %>
-  <div>
-    <%= label_tag :username %><br/>
-    <%= text_field_tag :username %>
+<div class="container">
+  <div class=" row dispatcher-login-top">
+    <div class="col-md-12">
+      <header></header>
+      <main></main>
+      <footer></footer>     
+    </div>
   </div>
-  <div>
-    <%= label_tag :password %><br/>
-    <%= password_field_tag :password %>
+
+  <div class="row dispatcher-login-center text-center">
+    <div class="col-md-12">
+      <main id="dispatcher-login-form">
+       <%= form_tag sessions_path do %>
+          <div>
+            <%= label_tag :username %><br/>
+            <%= text_field_tag :username%>
+          </div>
+          <div>
+            <%= label_tag :password %><br/>
+            <%= password_field_tag :password%>
+          </div>
+          <br>
+          <div class="login-button"><%= submit_tag "Log in", class: 'btn btn-success btn-lg btn-submit' %></div>
+        <% end %>
+      </main>
+    </div>
   </div>
-  <div><%= submit_tag "Log In" %></div>
-<% end %>
+
+  <div class="row dispatcher-login-bottom">
+    <div class="col-md-12">
+    </div>
+  </div>
+</div>
+
+
