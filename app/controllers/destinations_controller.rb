@@ -82,8 +82,10 @@ class DestinationsController < ApplicationController
 
   def get_all_recent_pings
     @recent_pings = []
-    destination_checkins = Checkin.where(destination_id: Dispatcher.find(session[:dispatcher_id]).destination_id)
-    destination_checkins.each { |checkin| @recent_pings << checkin.pings.last }
+    destination_checkins = Checkin.where(destination_id: Dispatcher.find(session[:dispatcher_id]).destination_id, checkout: nil)
+    destination_checkins.each do |checkin| 
+      @recent_pings << checkin.pings.last 
+    end
     render json: @recent_pings
   end
 

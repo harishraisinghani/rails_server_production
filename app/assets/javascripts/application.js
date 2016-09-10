@@ -43,13 +43,10 @@ function getAlerts() {
         }
         skier_names.push(name);
       }
-      console.log(skier_names);
-      console.log(alert_info);
-      console.log(alert_lat_long);
       for (var i = 0; i < alert_info.length; i ++) {
         master_info.push([skier_names[i], alert_lat_long[i], alert_info[i]]);
-      }
-    // console.log(master_info);
+      }    
+    console.log(master_info)
     }
   })
 };
@@ -60,7 +57,15 @@ function getPings() {
     dataType: 'json',
     url: '/destinations/:id/pings',
     success: function(data) {
-      console.log(data)
+      var ping_lat_long = []
+      for (var i = 0; i < data.length; i ++) {
+        var ping_coords = {
+          lat: data[i].lat,
+          long: data[i].long
+        }
+        ping_lat_long.push(ping_coords);
+      }
+    console.log(ping_lat_long)
     }
   });
 };
