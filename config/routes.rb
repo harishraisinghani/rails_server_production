@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   resources :destinations
   resources :memberships
   resources :groups
+  
+#Authenticate the skier from PhoneGap app
+  get 'skiers/login', to: 'skiers#authenticate'
+
   resources :skiers
   resources :sessions, only: [:new, :create, :destroy]
   
@@ -20,9 +24,6 @@ Rails.application.routes.draw do
   #Custom routes for Rails API Server
   
   #Skier
-
-  #Authenticate the skier from PhoneGap app
-  get 'skiers/login', to: 'skiers#authenticate'
 
   #Obtain all the pings for a specific skier. Used for logic to plot last position of skier and to determine if skier needs help
   get 'skiers/:id/pings', to: 'skiers#skier_pings_index'

@@ -99,16 +99,16 @@ class SkiersController < ApplicationController
   end
 
   def authenticate
-    username = params[:data]["username"]
-    password = params[:data]["password"]
-    skier = Skier.find_by(email: email)
+    username = params["username"]
+    password = params["password"]
+    skier = Skier.find_by(username: username)
 
     if skier && skier.authenticate(password)
       @id = skier.id
       @token = SecureRandom.uuid
       render json: [@id, @token]
     else
-      render json: "Sorry, your username and password is invalid"
+      render json: "Sorry, your username or password is invalid"
     end
   end
 

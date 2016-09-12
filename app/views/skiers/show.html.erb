@@ -59,3 +59,19 @@
 
 <%= link_to 'Edit', edit_skier_path(@skier) %> |
 <%= link_to 'Back', skiers_path %>
+
+<script>
+  console.log("Running script now");
+  $(function (){
+    $.ajax({
+      method: 'GET',
+      dataType: 'json',
+      url: '/skiers/login',
+      data: {username: 'harish', password:'admin'},
+      contentType: 'application/json',
+      success: function(response) {
+        console.log(response);
+      }
+    });
+  });
+</script>
