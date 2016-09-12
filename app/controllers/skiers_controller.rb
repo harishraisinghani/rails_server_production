@@ -98,6 +98,20 @@ class SkiersController < ApplicationController
     render json: @membership_ids
   end
 
+  def authenticate
+    username = params[:data]["username"]
+    password = params[:data]["password"]
+    skier = Skier.find_by(email: email)
+
+    if skier && skier.authenticate(password)
+      @id = skier.id
+      @token = SecureRandom.uuid
+      render json: [@id, @token]
+    else
+      render json: "Sorry, your username and password is invalid"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_skier
