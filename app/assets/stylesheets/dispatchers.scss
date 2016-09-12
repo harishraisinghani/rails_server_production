@@ -4,6 +4,10 @@
 
 $primary-background-color: #4A4A4A;
 
+.navbar {
+  color: white;
+}
+
 .dispatcher-login-top {
   background-color: $primary-background-color;
   height: 75px;
@@ -14,7 +18,7 @@ $primary-background-color: #4A4A4A;
   height: 75px;
 }
 
-.container {
+.container-dispatcher {
   background-image: url("/images/dispatch.png"); background-size: cover;
 }
 
@@ -25,5 +29,9 @@ $primary-background-color: #4A4A4A;
 #login-form {
   margin-top: 1cm;
 }
+.container-main {
+  padding-top: 70px;
+}
+
 
 
