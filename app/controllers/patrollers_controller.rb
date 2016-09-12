@@ -73,6 +73,22 @@ class PatrollersController < ApplicationController
     render json: @person
   end
 
+  def authenticate
+    username = params["username"]
+    password = params["password"]
+    patroller = Patroller.find_by(username: username)
+
+    if patroller && patroller.authenticate(password)
+      @id = patroller.id
+      @token = SecureRandom.uuid
+      patroller.token = @token
+      patroller.save
+      render json: [@id, @token]
+    else
+      render json: "Sorry, your username or password is invalid"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patroller

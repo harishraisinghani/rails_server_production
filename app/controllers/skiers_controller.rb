@@ -106,6 +106,8 @@ class SkiersController < ApplicationController
     if skier && skier.authenticate(password)
       @id = skier.id
       @token = SecureRandom.uuid
+      skier.token = @token
+      skier.save
       render json: [@id, @token]
     else
       render json: "Sorry, your username or password is invalid"
