@@ -2,11 +2,19 @@ Rails.application.routes.draw do
   resources :alerts
   resources :pings
   resources :checkins
+
+  #Authenticate the skier from PhoneGap app. Need to do this before resources :skiers
+  get 'patrollers/login', to: 'patrollers#authenticate'
+
   resources :patrollers
   resources :dispatchers
   resources :destinations
   resources :memberships
   resources :groups
+  
+  #Authenticate the skier from PhoneGap app. Need to do this before resources :skiers
+  get 'skiers/login', to: 'skiers#authenticate'
+
   resources :skiers
   resources :sessions, only: [:new, :create, :destroy]
   

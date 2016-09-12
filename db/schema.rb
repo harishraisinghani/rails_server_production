@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909065039) do
+ActiveRecord::Schema.define(version: 20160912222524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160909065039) do
     t.integer  "destination_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "token"
     t.index ["destination_id"], name: "index_patrollers_on_destination_id", using: :btree
   end
 
@@ -112,6 +113,7 @@ ActiveRecord::Schema.define(version: 20160909065039) do
     t.string   "phone"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "token"
   end
 
   add_foreign_key "alerts", "dispatchers"
