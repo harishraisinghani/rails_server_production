@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require_tree .
 
+
 // // Dispatch:
 
 // // on interval (short interval.. maybe 5 or 10 secs), have ping and alert data queried, 
@@ -27,35 +28,38 @@ function getAlerts() {
     dataType: 'json',
     url: '/destinations/:id/alerts',
     success: function(data) {
-      var alert_info = []
-      var alert_lat_long = []
-      var skier_names = []
-      var master_info = []
+      var alertInfo = []
+      var alertLatLong = []
+      var skierNames = []
+      var masterInfo = []
       for (var i = 0; i < data[0].length; i ++) {
-        var needed_alert_info = {
-          // pin_label: ,
+        var neededAlertInfo = {
+          pin_label: i,
           false_alarm: data[0][i].false_alarm,
           state: data[0][i].state,
           patroller_id: data[0][i].patroller_id 
         }
-        alert_info.push(needed_alert_info);
-        var lat_long = {
+        alertInfo.push(neededAlertInfo);
+        var latLong = {
           lat: data[1][i].lat,
           long: data[1][i].long
         }
-        alert_lat_long.push(lat_long);
+        alertLatLong.push(latLong);
         var name = {
           skier_name: data[2][i]
         }
-        skier_names.push(name);
+        skierNames.push(name);
       }
-      for (var i = 0; i < alert_info.length; i ++) {
-        master_info.push([skier_names[i], alert_lat_long[i], alert_info[i]]);
-      }    
-    console.log(master_info)
+      for (var i = 0; i < alertInfo.length; i ++) {
+        masterInfo.push([skierNames[i], alertLatLong[i], alertInfo[i]]);
+      } 
+      updateDispatchAlertPins(masterInfo);  
+    // TODO write function that populates googlemap with masterInfo lat and long
     }
   })
 };
+
+
 
 function getPings() { 
   $.ajax({
@@ -63,18 +67,54 @@ function getPings() {
     dataType: 'json',
     url: '/destinations/:id/pings',
     success: function(data) {
-      var ping_lat_long = []
+      var pingLatLong = []
       for (var i = 0; i < data.length; i ++) {
-        var ping_coords = {
+        var pingCoords = {
           lat: data[i].lat,
           long: data[i].long
         }
-        ping_lat_long.push(ping_coords);
+        pingLatLong.push(pingCoords);
       }
-    console.log(ping_lat_long)
+      updateDispatchSkierPins(pingLatLong);
+    // console.log(pingLatLong)
+    // TODO create map and populate lat long data
+
     }
   }); 
 };
+var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+
+function updateDispatchAlertPins(masterInfo) {
+  masterInfo.forEach(function(record) {
+    var contentString = record[0].skier_name;
+    var alertCoord = {lat: record[1].lat, lng: record[1].long};
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var myMarker = new google.maps.Marker({
+      position: alertCoord,
+      map: SkiPals.map,
+      animation: google.maps.Animation.DROP,
+      icon: iconBase + 'caution.png'
+    });
+    myMarker.addListener('click', function() {
+      infowindow.open(SkiPals.map, myMarker);
+    });
+  })
+}
+
+function updateDispatchSkierPins(pingLatLong) {
+  for (var i = 0; i < pingLatLong.length; i ++) {
+    var skierCoord = {lat: pingLatLong[i].lat, lng: pingLatLong[i].long};
+    var myMarker = new google.maps.Marker({
+      position: skierCoord,
+      map: SkiPals.map,
+      animation: google.maps.Animation.DROP,
+      icon: iconBase + 'ski.png'
+    });
+  }
+}
+
 
 // // Patroller:
 
@@ -85,7 +125,7 @@ function getPings() {
   //   $.ajax({
   //     method: 'GET',
   //     dataType: 'json',
-  //     url: '/patrollers/1/alert',
+  //     url: '/patrollers/:id/alert',
   //     success: function(data) {
   //       console.log(data)
   //     }
@@ -102,7 +142,7 @@ function getPings() {
 //   $.ajax({
 //     method: 'GET',
 //     dataType: 'json',
-//     url: '/groups/1/skiers/current_checkin/pings/last',
+//     url: '/groups/:id/skiers/current_checkin/pings/last',
 //     success: function(data) {
 //       console.log(data)
 //     }
@@ -117,7 +157,7 @@ function getPings() {
   //   $.ajax({
   //     method: 'GET',
   //     dataType: 'json',
-  //     url: '/groups/1/skiers/current_checkin/pings/last',
+  //     url: '/groups/:id/skiers/current_checkin/pings/last',
   //     success: function(data) {
   //       console.log(data)
   //     }
@@ -132,7 +172,7 @@ function getPings() {
 //     // DONT FORGET TO UPDATE WITH GEOLOCATOR VARIABLES
 //     lat: 77.0,
 //     long: 67.0,
-//     // Skier.find(session[:id]).current_checkin_id
+//     // Skier.find_by(session[:id]).current_checkin_id
 //     checkin_id: 10 
 //   }  
 //   $.ajax({

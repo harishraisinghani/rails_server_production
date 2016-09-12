@@ -12,7 +12,9 @@
 </div>
 
 <div class="container-main">
-  <div class="row well well-lg">
+
+  <div id="map"></div>
+  <!-- <div class="row well well-lg">
     <div class="col-lg-10 col-lg-offset-1">
       <iframe class=".dispatch-view"
         width="100%"
@@ -20,10 +22,10 @@
         align = "middle"
         frameborder="0" style="border:0"
         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA9CNv2ZXkriArWSZvODA5o3Pmx86LEyDA
-          &q=Space+Needle,Seattle+WA">
+          &q=Whistler">
       </iframe>
     </div>
-  </div>
+  </div> -->
 
   <div class='row text-center'>
     <div class='dispatch-alerts col-md-2 col-md-offset-2'>
@@ -84,16 +86,32 @@
 
 
 
-<!-- <script>
+<script>
 $(function(){
   getAlerts();
-  setInterval(getAlerts, 5000);
+  // setInterval(getAlerts, 5000);
 
   getPings();
-  setInterval(getPings, 5000);
+  // setInterval(getPings, 5000);
 })
 </script>
- -->
+<script>
+
+  // globals
+  var SkiPals = {};
+
+  function initMap() {
+    var centerCoord = {lat: 49.28189, lng: -123.10819}
+    SkiPals.map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 13,
+      center: centerCoord
+    });
+  };
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2zxf4HhsPxnaJeWLEleo_z13SFdVUi2Q&callback=initMap">
+</script>
+
 <!-- <footer>
   <small>
     Signed in as <%= current_dispatcher.username %> (<%= link_to "Log out", session_path("current"), method: :delete %>)
