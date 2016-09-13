@@ -63,7 +63,7 @@ class PatrollersController < ApplicationController
 
   #Custom methods
   def receive_alert
-    alert = Alert.where(patroller_id: params[:id], state: 'active') 
+    alert = Alert.find_by(patroller_id: params[:id], state: 'active') 
     skier_name = alert.ping.checkin.skier.firstname + " " + alert.ping.checkin.skier.lastname
     @person = { 
       lat: alert.ping.lat,
