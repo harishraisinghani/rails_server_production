@@ -66,6 +66,7 @@ class DestinationsController < ApplicationController
     @active_alerts = []
     @alert_pings = []
     @skier_names = []
+    @skier_ids = []
     all_current_checkins.each do |checkin|
       pings = checkin.pings
       pings.each do |ping|
@@ -74,10 +75,11 @@ class DestinationsController < ApplicationController
           @active_alerts << temp_alert
           @alert_pings << ping
           @skier_names << temp_alert.ping.checkin.skier.firstname + ' ' + temp_alert.ping.checkin.skier.lastname
+          @skier_ids << temp_alert.ping.checkin.skier.id
         end
       end
     end
-    render json: [@active_alerts, @alert_pings, @skier_names]
+    render json: [@active_alerts, @alert_pings, @skier_names, @skier_ids]
   end
 
   def get_all_recent_pings

@@ -28,13 +28,14 @@ function getAlerts() {
     dataType: 'json',
     url: '/destinations/:id/alerts',
     success: function(data) {
+      console.log(data)
       var alertInfo = []
       var alertLatLong = []
-      var skierNames = []
+      var skierNamesAndIDs = []
       var masterInfo = []
       for (var i = 0; i < data[0].length; i ++) {
         var neededAlertInfo = {
-          pin_label: i,
+          skier_id: data[3][i],
           false_alarm: data[0][i].false_alarm,
           state: data[0][i].state,
           patroller_id: data[0][i].patroller_id 
@@ -45,21 +46,45 @@ function getAlerts() {
           long: data[1][i].long
         }
         alertLatLong.push(latLong);
-        var name = {
+        var nameAndID = {
           skier_name: data[2][i]
         }
-        skierNames.push(name);
+        skierNamesAndIDs.push(nameAndID);
       }
       for (var i = 0; i < alertInfo.length; i ++) {
-        masterInfo.push([skierNames[i], alertLatLong[i], alertInfo[i]]);
+        masterInfo.push([skierNamesAndIDs[i], alertLatLong[i], alertInfo[i]]);
       } 
-      updateDispatchAlertPins(masterInfo);  
-    // TODO write function that populates googlemap with masterInfo lat and long
+      console.log(masterInfo);
+      updateDispatchAlertPins(masterInfo);
+      updatePageAlertInfo(masterInfo);  
     }
   })
 };
 
-
+function updatePageAlertInfo(masterInfo) {
+  // var newRow = $('<tr>');
+  for (var i = 0; i < masterInfo.length; i++) {
+    $('#alert-body').append('<tr><td>' + masterInfo[i][2].skier_id + '</td><td><a href=/skiers/' + masterInfo[i][2].skier_id + '>' + masterInfo[i][0].skier_name + '</a></td><td><input class="form-check-input" type="checkbox" value=""></td><td>' + masterInfo[i][2].state + '</td><td><button onclick="myFunction()"' + 
+      'class="dropbtn">Assign Patroller ID</button></td><td><button class="btn btn-danger">Send to Patroller</button></td></tr>');
+    // $('<td>')
+    //   .text(masterInfo[i][2].pin_label)
+    //   .appendTo(newRow),
+    // $('<td>') 
+    //   .text(masterInfo[i][0].skier_name)
+    //   .appendTo(newRow),
+    // $('<td>')
+      //TODO checkbox
+    // $('<td>')
+    //   .text(masterInfo[0][2].state)
+    //   .appendTo(newRow),
+    // $('<td>')
+      //TODO dropdown
+    // $('<td>')
+      //TODO button
+  }
+  // $(newRow).appendTo('#alert-body');
+  // console.log(newRow)
+}
 
 function getPings() { 
   $.ajax({
