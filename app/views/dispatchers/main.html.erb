@@ -1,12 +1,10 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-fixed-top">
   <div class="container">
-    <div class="navbar-header"> 
-    <a href='/' class='navbar-brand'>Welcome to Dispatch</a>
-    </div>
-    <div class="row"> 
-      <ul class='nav navbar-nav navbar-right collapse navbar-collapse'>
-        <li>Signed in as <%= current_dispatcher.username %><%= link_to "Log out", session_path("current"), method: :delete %></li>
-      </ul>
+    <div class="row">
+      <div class="header logo"> 
+        <a href='/'>snowBlind(<span id="arg"><%= current_dispatcher.username %></span>)</a>
+          <button class="btn btn-secondary pull-right"><%= link_to "Log out", session_path("current"), method: :delete %></button>
+      </div>
     </div>
   </div>
 </div>
