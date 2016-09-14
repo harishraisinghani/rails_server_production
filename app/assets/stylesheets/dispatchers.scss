@@ -2,20 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$primary-background-color: #4A4A4A;
+$primary-background-color: #272D28;
 
 .navbar {
+  background-color: $primary-background-color;
+  height: 50px;
+
+}
+
+.nav li {
   color: white;
 }
 
 .dispatcher-login-top {
   background-color: $primary-background-color;
-  height: 75px;
+  height: 50px;
 }
 
 .dispatcher-login-bottom {
   background-color: $primary-background-color;
-  height: 75px;
+  height: 50px;
 }
 
 .container-dispatcher {
@@ -26,15 +32,43 @@ $primary-background-color: #4A4A4A;
   height: 750px;
 }
 
-#login-form {
-  margin-top: 1cm;
+#dispatcher-login-form {
+  margin-top: 2cm;
 }
-.container-main {
-  padding-top: 70px;
-}
+// .container-main {
+//   padding-top: 70px;
+// }
 
 #map { 
   height: 400px;
+}
+
+.logo > a:link {
+  text-decoration: none;
+  color: #66D9EF;
+  font-family: "Menlo-Regular";
+  font-size: 26px;
+
+}
+
+.logo {
+  padding-top: 10px;
+}
+
+.logo > a:visited {
+  text-decoration: none;
+  color: #66D9EF;
+  font-family: "Menlo-Regular";
+  font-size: 26px;
+
+}
+
+#arg {
+  color: #FD971F;
+  font-family: "Menlo-Regular";
+  font-size: 26px;
+  font-style: italic;
+
 }
 
 
