@@ -25,7 +25,7 @@ function getAlerts() {
   $.ajax({
     method: 'GET',
     dataType: 'json',
-    url: 'http://10.10.92.241:3000/destinations/:id/alerts',
+    url: 'https://skipatrolproductiondatabase.herokuapp.com/destinations/:id/alerts',
     success: function(data) {
       console.log(data)
       var masterInfo = []
@@ -96,7 +96,7 @@ function getPings() {
   $.ajax({
     method: 'GET',
     dataType: 'json',
-    url: 'http://10.10.92.241:3000/destinations/:id/pings',
+    url: 'https://skipatrolproductiondatabase.herokuapp.com/destinations/:id/pings',
     success: function(data) {
       var pingLatLong = []
       for (var i = 0; i < data.length; i++) {
@@ -160,7 +160,7 @@ function addFalseAlarmClickHandler() {
       data: {
         alert: alarm
       },
-      url: 'http://10.10.92.241:3000/alerts/' + alert_id,
+      url: 'https://skipatrolproductiondatabase.herokuapp.com/alerts/' + alert_id,
       success: function(data) {
         getAlerts();
         console.log(data)
@@ -185,7 +185,7 @@ function addPatrollerIdHandler() {
       data: {
         alert: patroller_id
       },
-      url: 'http://10.10.92.241:3000/alerts/' + alert_id,
+      url: 'https://skipatrolproductiondatabase.herokuapp.com/alerts/' + alert_id,
       success: function() {
         console.log("success")
       }
@@ -206,7 +206,7 @@ function addResolvedClickHandler() {
       data: {
         alert: status
       },
-      url: '/alerts/' + alert_id,
+      url: 'https://skipatrolproductiondatabase.herokuapp.com/alerts/' + alert_id,
       success: function(data) {
         console.log(data)
         getAlerts();
