@@ -15,11 +15,7 @@
 //= require turbolinks
 //= require_tree .
 
-// DISPATCH:
-
-// // on interval (short interval.. maybe 5 or 10 secs), have ping and alert data queried, 
-// // update map and alert list accordingly.
-// // AJAX GET
+var markers = {};
 
 function getAlerts() { 
   $.ajax({
@@ -27,10 +23,8 @@ function getAlerts() {
     dataType: 'json',
     url: '/destinations/:id/alerts',
     success: function(data) {
-      console.log(data)
       var masterInfo = []
       var onShiftPatrollers = []
-      // var on_shift_patrollers = [101, 202, 303];     // TODO: overwrite with useful data
       for (var i = 0; i < data[0].length; i++) {
         var niceData = {
           skier_id: data[3][i],
@@ -87,9 +81,9 @@ function updatePageAlertInfo(masterInfo, onShiftPatrollers) {
       $('#assignment-list-' + alertId).append(patrollerInfoHtml);
     }   
   };
+  addPatrollerIdHandler()
   addFalseAlarmClickHandler();
   addResolvedClickHandler();
-  addPatrollerIdHandler()
 }
 
 function getPings() { 
@@ -113,6 +107,14 @@ function getPings() {
 var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 
 function updateDispatchAlertPins(masterInfo) {
+
+  if (markers) {
+    for (var key in markers) {
+      markers[key].setMap(null);
+    }
+  markers = {};
+  }; 
+
   masterInfo.forEach(function(record) {
     var contentString = record.skier_name;
     var alertCoord = {lat: record.lat, lng: record.long};
@@ -122,22 +124,24 @@ function updateDispatchAlertPins(masterInfo) {
     var myMarker = new google.maps.Marker({
       position: alertCoord,
       map: SkiPals.map,
-      // animation: google.maps.Animation.DROP,
       icon: iconBase + 'caution.png'
     });
+    myMarker.alert_id = record.alert_id;
+    markers[record.alert_id] = myMarker;
     myMarker.addListener('click', function() {
       infowindow.open(SkiPals.map, myMarker);
     });
-  })
+  });
 }
 
 function updateDispatchSkierPins(pingLatLong) {
   for (var i = 0; i < pingLatLong.length; i++) {
-    var skierCoord = {lat: pingLatLong[i].lat, lng: pingLatLong[i].long};
+    var skierCoord = {lat: pingLatLong[i].lat, lng: pingLatLong[i].long};    
+
+    console.log("New Skiier pin");
     var myMarker = new google.maps.Marker({
       position: skierCoord,
       map: SkiPals.map,
-      animation: google.maps.Animation.DROP,
       icon: iconBase + 'ski.png'
     });
   }
@@ -148,8 +152,6 @@ function updateDispatchSkierPins(pingLatLong) {
 function addFalseAlarmClickHandler() {
   $('.false-alarm-close').on('click', function() {
     var alert_id = this.dataset.alertId;
-
-    // console.log("I am an onclick handler for false-alarm-close for alert " + alert_id + ", and I am happy with life");
     var alarm = {
       false_alarm: true,
       state: 'inactive'
@@ -161,9 +163,9 @@ function addFalseAlarmClickHandler() {
         alert: alarm
       },
       url: '/alerts/' + alert_id,
-      success: function(data) {
+      success: function() {
         getAlerts();
-        console.log(data)
+        console.log("false alarm success")
       }
     })
   });
@@ -173,12 +175,11 @@ function addFalseAlarmClickHandler() {
 // UPDATE
 function addPatrollerIdHandler() {
   $('.patroller-assignment').on('click', function() { 
-
     var alert_id = this.dataset.alertId;
     var patroller_id = {
       patroller_id: this.dataset.patrollerId
     }
-    console.log('assign ' + patroller_id + ' to ' + alert_id);
+    console.log('assign ' + this.dataset.patrollerId + ' to ' + alert_id);
     $.ajax({
       method: 'PUT',
       dataType: 'json',
@@ -187,7 +188,8 @@ function addPatrollerIdHandler() {
       },
       url: '/alerts/' + alert_id,
       success: function() {
-        console.log("success")
+        console.log("assign patroller success")
+        getAlerts()
       }
     })
   });
@@ -207,9 +209,11 @@ function addResolvedClickHandler() {
         alert: status
       },
       url: '/alerts/' + alert_id,
-      success: function(data) {
-        console.log(data)
+      success: function() {
+        console.log("Resolved!")
         getAlerts();
+        //
+        // deleteMarker(alert_id);
       }
     })
   });

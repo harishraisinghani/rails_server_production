@@ -1,64 +1,36 @@
-<button id='refresh-skier-map'>Update Map</button>
-<p id="notice"><%= notice %></p>
+<div class="navbar navbar-inverse navbar-static-top">
+  <div class="container">
+    <div class="navbar-header"> 
+    <a href='/' class='navbar-brand'>Back to Map View</a>
+    </div>
+    <div class="row"> 
+      <ul class='nav navbar-nav navbar-right collapse navbar-collapse'>
+        <li>Signed in as <%= current_dispatcher.username %><%= link_to "Log out", session_path("current"), method: :delete %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
+<div class="container">
+  <div class="jumbotron text-center">
+    <h1><%= @skier.firstname %> <%= @skier.lastname %></h1>
+    <div>     
+      <p><%= @skier.email %></p>
+    </div>
+    <div>
+      <p><%= @skier.phone %></p>
+    </div>
+  </div>
+  <div class="jumbotron text-center">
+    <div>
+      <p><strong>Emergency Contact 1</strong>: <%= @skier.ec1 %></p>
+    </div>
 
-<p>
-  <strong>Firstname:</strong>
-  <%= @skier.firstname %>
-</p>
-
-<p>
-  <strong>Lastname:</strong>
-  <%= @skier.lastname %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @skier.email %>
-</p>
-
-<p>
-  <strong>Ec1:</strong>
-  <%= @skier.ec1 %>
-</p>
-
-<p>
-  <strong>Ec1phone:</strong>
-  <%= @skier.ec1phone %>
-</p>
-
-<p>
-  <strong>Ec2:</strong>
-  <%= @skier.ec2 %>
-</p>
-
-<p>
-  <strong>Ec2phone:</strong>
-  <%= @skier.ec2phone %>
-</p>
-
-<p>
-  <strong>Current checkin:</strong>
-  <%= @skier.current_checkin_id %>
-</p>
-
-<p>
-  <strong>Username:</strong>
-  <%= @skier.username %>
-</p>
-
-<p>
-  <strong>Profile picture:</strong>
-  <%= @skier.profile_picture %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @skier.phone %>
-</p>
-
-<%= link_to 'Edit', edit_skier_path(@skier) %> |
-<%= link_to 'Back', skiers_path %>
+    <div>
+      <p><strong>Emergency Contact 1 Phone #</strong>: <%= @skier.ec1phone %></p>
+    </div>
+  </div>
+</div>
 
 <!-- Test function to see if appropriate information is returned from server -->
 <!-- <script>

@@ -25,7 +25,7 @@
             <th>Action</th>
           </tr>
         </thead>
-        <tbody id="alert-body">
+        <tbody id="alert-body" class="jumbotron">
           <div id="alertData"></div>
         </tbody>
       </table>
@@ -45,9 +45,6 @@
       </ul>
       </div>
     </td>
-   <!--  <td><button data-alert-id="{{alert_id}}" class="update-patroller-id-on-alert-object dropbtn">Assign Patroller ID</button></td> -->
-    <!-- TODO  if patroller_id is null, render unassigned state (name, assignment dropdown,
-    false alarm button) ELSE render assigned state ( name, assigned patroller_id, false alarm button, resolved button-->
     <td><button data-alert-id="{{alert_id}}" class="false-alarm-close btn btn-danger">False Alarm</button></td>
     <td><button data-alert-id="{{alert_id}}" class="resolved-closed btn btn-danger">Resolved</button></td>
   </tr>
@@ -56,12 +53,13 @@
 <script>
 $(function(){
   getAlerts();
-  // setInterval(getAlerts, 2000);  // TODO: Jeremy is crazy, set this back to 5000
+  // setInterval(getAlerts, 4000);
 
   getPings();
-  // setInterval(getPings, 5000);
+  // setInterval(getPings, 4000);
 })
 </script>
+
 <script>
 
   // globals
@@ -75,12 +73,7 @@ $(function(){
     });
   };
 </script>
+
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2zxf4HhsPxnaJeWLEleo_z13SFdVUi2Q&callback=initMap">
 </script>
-
-<!-- <footer>
-  <small>
-    Signed in as <%= current_dispatcher.username %> (<%= link_to "Log out", session_path("current"), method: :delete %>)
-  </small>
-</footer> -->
