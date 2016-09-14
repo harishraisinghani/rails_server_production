@@ -35,8 +35,8 @@
 <!-- Test function to see if appropriate information is returned from server -->
 <!-- <script>
   $.ajax({
-    method: 'GET',
-    url: '/skiers/login',
+    method: 'POST',
+    url: 'https://skipatrolproductiondatabase.herokuapp.com/skiers/login',
     dataType: 'json',
     data: {username: "jacob", password: "admin"},
     success: function(response) {
