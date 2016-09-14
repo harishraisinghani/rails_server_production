@@ -1,23 +1,23 @@
-<div class="container-dispatcher">
-  <div class=" row dispatcher-login-top">
-    <div class="col-md-12">
-      <header></header>
-      <main></main>
-      <footer></footer>     
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <div class="header logo"> 
+      <a href='/'>snowBlind(<span id="arg">dispatch</span>)</a>
     </div>
   </div>
+</div>
 
+<div class="container-dispatcher">
   <div class="row dispatcher-login-center text-center">
     <div class="col-md-12">
       <main id="dispatcher-login-form">
        <%= form_tag sessions_path do %>
           <div>
-            <%= label_tag :username %><br/>
-            <%= text_field_tag :username%>
+            <%= label_tag :username, "" %><br/>
+            <%= text_field_tag :username, "ramrod"%>
           </div>
           <div>
-            <%= label_tag :password %><br/>
-            <%= password_field_tag :password%>
+            <%= label_tag :password, "" %><br/>
+            <%= password_field_tag :password, "admin"%>
           </div>
           <br>
           <div class="login-button"><%= submit_tag "Log in", class: 'btn btn-success btn-lg btn-submit' %></div>
