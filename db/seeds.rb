@@ -10,10 +10,10 @@ Group.import([:name, :admin_id], [
 ])
 Skier.import([:firstname, :lastname, :email, :password_digest, :ec1, :ec1phone, :ec2, :ec2phone, :current_checkin_id, :username, :profile_picture, :phone], [
   ["Jacob", "Robinson", "jacob@example.com", "$2a$10$rcZXrZucDmkCzkHeynN6pOAV7TkH72PFadW.I5eJKsPaCJweGckPC", "Larry", "6041112222", "", "", nil, "jacob", "", "2505550155"],
-  ["Silje", "Norendal", "silje@example.com", "$2a$10$li2i6.8QUJiwfL0NCgYzQuntZ2.hEMy2J.T7KHMc5xU6.OtQ4LcCi", "Larry", "6045555555", "", "", 7, "silje", "", "2505550158"],
-  ["Simon", "Edmondson", "simon@example.com", "$2a$10$cTPab6w7VD4HoPnC0I5bdOVQdQ56V.puq5X11W/Ezx1txvjSfFOvu", "Larry", "6045555555", "", "", 5, "simon", "", "6044444444"],
-  ["Harish", "Raisinghani", "harish@example.com", "$2a$10$FS5rOlZ5cOC72eKxIkS4sO2LGWfVkR4A9MJFVkCZRkmTsb5TeBe/C", "Larry", "6043333333", "", "", 6, "harish", "", "2505550157"],
-  ["Bode", "Miller", "bode@example.com", "$2a$10$8AWbqsPAyaw0hektpoy6hOtAI8nisriUurMjqFToFdeMfkMHHyY3S", "Larry", "6045555555", "", "", 8, "bmiller", "", "2505550159"],
+  ["Silje", "Norendal", "silje@example.com", "$2a$10$li2i6.8QUJiwfL0NCgYzQuntZ2.hEMy2J.T7KHMc5xU6.OtQ4LcCi", "Larry", "6045555555", "", "", 10, "silje", "", "2505550158"],
+  ["Simon", "Edmondson", "simon@example.com", "$2a$10$cTPab6w7VD4HoPnC0I5bdOVQdQ56V.puq5X11W/Ezx1txvjSfFOvu", "Larry", "6045555555", "", "", 11, "simon", "", "6044444444"],
+  ["Harish", "Raisinghani", "harish@example.com", "$2a$10$FS5rOlZ5cOC72eKxIkS4sO2LGWfVkR4A9MJFVkCZRkmTsb5TeBe/C", "Larry", "6043333333", "", "", 12, "harish", "", "2505550157"],
+  ["Bode", "Miller", "bode@example.com", "$2a$10$8AWbqsPAyaw0hektpoy6hOtAI8nisriUurMjqFToFdeMfkMHHyY3S", "Larry", "6045555555", "", "", 13, "bmiller", "", "2505550159"],
   ["Nancy", "Greene", "nancy@example.com", "$2a$10$pXF54wipa5VXKDtYP5sWDusmnZOwzEKEafFrckdQ6xurbAv6posnq", "Larry", "6045555555", "", "", nil, "nancy", "", "2505550160"]
 ])
 Dispatcher.import([:firstname, :lastname, :username, :password_digest, :on_shift, :destination_id], [
