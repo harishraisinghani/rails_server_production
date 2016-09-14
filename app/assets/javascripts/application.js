@@ -15,8 +15,7 @@
 //= require turbolinks
 //= require_tree .
 
-
-// // Dispatch:
+// DISPATCH:
 
 // // on interval (short interval.. maybe 5 or 10 secs), have ping and alert data queried, 
 // // update map and alert list accordingly.
@@ -29,61 +28,68 @@ function getAlerts() {
     url: '/destinations/:id/alerts',
     success: function(data) {
       console.log(data)
-      var alertInfo = []
-      var alertLatLong = []
-      var skierNamesAndIDs = []
       var masterInfo = []
-      for (var i = 0; i < data[0].length; i ++) {
-        var neededAlertInfo = {
+      var onShiftPatrollers = []
+      // var on_shift_patrollers = [101, 202, 303];     // TODO: overwrite with useful data
+      for (var i = 0; i < data[0].length; i++) {
+        var niceData = {
           skier_id: data[3][i],
           false_alarm: data[0][i].false_alarm,
-          state: data[0][i].state,
-          patroller_id: data[0][i].patroller_id 
-        }
-        alertInfo.push(neededAlertInfo);
-        var latLong = {
+          state: data[0][i].state, 
           lat: data[1][i].lat,
-          long: data[1][i].long
+          long: data[1][i].long,
+          skier_name: data[2][i],
+          alert_id: data[0][i].id
         }
-        alertLatLong.push(latLong);
-        var nameAndID = {
-          skier_name: data[2][i]
-        }
-        skierNamesAndIDs.push(nameAndID);
+        masterInfo.push(niceData);
       }
-      for (var i = 0; i < alertInfo.length; i ++) {
-        masterInfo.push([skierNamesAndIDs[i], alertLatLong[i], alertInfo[i]]);
-      } 
-      console.log(masterInfo);
+      for (var i = 0; i < data[4].length; i++) {
+        var patrollerInfo = {
+          name: data[4][i].lastname,
+          id: data[4][i].id
+        }
+        onShiftPatrollers.push(patrollerInfo);
+      }
       updateDispatchAlertPins(masterInfo);
-      updatePageAlertInfo(masterInfo);  
+      updatePageAlertInfo(masterInfo, onShiftPatrollers);  
     }
   })
 };
 
-function updatePageAlertInfo(masterInfo) {
-  // var newRow = $('<tr>');
+function updatePageAlertInfo(masterInfo, onShiftPatrollers) {
+  $('#alert-body').html("");
+  var alertInfoTemplateSource = $('#alert-template').html();
+  var alertInfoTemplate = Handlebars.compile(alertInfoTemplateSource);
+  var patrollerInfoTemplateSource = $('#patroller-template').html();
+  var patrollerInfoTemplate = Handlebars.compile(patrollerInfoTemplateSource);
+  var alertId;
+
   for (var i = 0; i < masterInfo.length; i++) {
-    $('#alert-body').append('<tr><td>' + masterInfo[i][2].skier_id + '</td><td><a href=/skiers/' + masterInfo[i][2].skier_id + '>' + masterInfo[i][0].skier_name + '</a></td><td><input class="form-check-input" type="checkbox" value=""></td><td>' + masterInfo[i][2].state + '</td><td><button onclick="myFunction()"' + 
-      'class="dropbtn">Assign Patroller ID</button></td><td><button class="btn btn-danger">Send to Patroller</button></td></tr>');
-    // $('<td>')
-    //   .text(masterInfo[i][2].pin_label)
-    //   .appendTo(newRow),
-    // $('<td>') 
-    //   .text(masterInfo[i][0].skier_name)
-    //   .appendTo(newRow),
-    // $('<td>')
-      //TODO checkbox
-    // $('<td>')
-    //   .text(masterInfo[0][2].state)
-    //   .appendTo(newRow),
-    // $('<td>')
-      //TODO dropdown
-    // $('<td>')
-      //TODO button
-  }
-  // $(newRow).appendTo('#alert-body');
-  // console.log(newRow)
+    alertId = masterInfo[i].alert_id;
+
+    var alertInfo = {
+      skier_name: masterInfo[i].skier_name, 
+      skier_id: masterInfo[i].skier_id,
+      alert_state: masterInfo[i].state,
+      // patroller_id: masterInfo[i].patroller_id,
+      alert_id: alertId
+    };
+    var alertInfoHtml = alertInfoTemplate(alertInfo);
+    $('#alert-body').append(alertInfoHtml);
+
+    for (var p = 0; p < onShiftPatrollers.length; p++) {
+      var patrollers = {
+        alert_id: alertId,
+        patroller_name: onShiftPatrollers[p].name,
+        patroller_id: onShiftPatrollers[p].id
+      };
+      var patrollerInfoHtml = patrollerInfoTemplate(patrollers);
+      $('#assignment-list-' + alertId).append(patrollerInfoHtml);
+    }   
+  };
+  addFalseAlarmClickHandler();
+  addResolvedClickHandler();
+  addPatrollerIdHandler()
 }
 
 function getPings() { 
@@ -93,7 +99,7 @@ function getPings() {
     url: '/destinations/:id/pings',
     success: function(data) {
       var pingLatLong = []
-      for (var i = 0; i < data.length; i ++) {
+      for (var i = 0; i < data.length; i++) {
         var pingCoords = {
           lat: data[i].lat,
           long: data[i].long
@@ -101,9 +107,6 @@ function getPings() {
         pingLatLong.push(pingCoords);
       }
       updateDispatchSkierPins(pingLatLong);
-    // console.log(pingLatLong)
-    // TODO create map and populate lat long data
-
     }
   }); 
 };
@@ -111,15 +114,15 @@ var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 
 function updateDispatchAlertPins(masterInfo) {
   masterInfo.forEach(function(record) {
-    var contentString = record[0].skier_name;
-    var alertCoord = {lat: record[1].lat, lng: record[1].long};
+    var contentString = record.skier_name;
+    var alertCoord = {lat: record.lat, lng: record.long};
     var infowindow = new google.maps.InfoWindow({
       content: contentString
     });
     var myMarker = new google.maps.Marker({
       position: alertCoord,
       map: SkiPals.map,
-      animation: google.maps.Animation.DROP,
+      // animation: google.maps.Animation.DROP,
       icon: iconBase + 'caution.png'
     });
     myMarker.addListener('click', function() {
@@ -129,7 +132,7 @@ function updateDispatchAlertPins(masterInfo) {
 }
 
 function updateDispatchSkierPins(pingLatLong) {
-  for (var i = 0; i < pingLatLong.length; i ++) {
+  for (var i = 0; i < pingLatLong.length; i++) {
     var skierCoord = {lat: pingLatLong[i].lat, lng: pingLatLong[i].long};
     var myMarker = new google.maps.Marker({
       position: skierCoord,
@@ -140,6 +143,77 @@ function updateDispatchSkierPins(pingLatLong) {
   }
 }
 
+// on button click, update false alarm to be true, and state to closed, and remove from alert page
+// UPDATE
+function addFalseAlarmClickHandler() {
+  $('.false-alarm-close').on('click', function() {
+    var alert_id = this.dataset.alertId;
+
+    // console.log("I am an onclick handler for false-alarm-close for alert " + alert_id + ", and I am happy with life");
+    var alarm = {
+      false_alarm: true,
+      state: 'inactive'
+    };
+    $.ajax({
+      method: 'PUT',
+      dataType: 'json',
+      data: {
+        alert: alarm
+      },
+      url: '/alerts/' + alert_id,
+      success: function(data) {
+        getAlerts();
+        console.log(data)
+      }
+    })
+  });
+}
+
+// on button click, update alert patroller id and show resolved button
+// UPDATE
+function addPatrollerIdHandler() {
+  $('.patroller-assignment').on('click', function() { 
+
+    var alert_id = this.dataset.alertId;
+    var patroller_id = {
+      patroller_id: this.dataset.patrollerId
+    }
+    console.log('assign ' + patroller_id + ' to ' + alert_id);
+    $.ajax({
+      method: 'PUT',
+      dataType: 'json',
+      data: {
+        alert: patroller_id
+      },
+      url: '/alerts/' + alert_id,
+      success: function() {
+        console.log("success")
+      }
+    })
+  });
+}
+// on button click, update status to closed and remove from alert page
+// UPDATE
+function addResolvedClickHandler() {
+  $('.resolved-closed').on('click', function() { 
+    var alert_id = this.dataset.alertId;
+    var status = {
+      state: 'inactive'
+    }
+    $.ajax({
+      method: 'PUT',
+      dataType: 'json',
+      data: {
+        alert: status
+      },
+      url: '/alerts/' + alert_id,
+      success: function(data) {
+        console.log(data)
+        getAlerts();
+      }
+    })
+  });
+}
 
 // // Patroller:
 
@@ -326,40 +400,9 @@ function updateDispatchSkierPins(pingLatLong) {
 // // on button click, have alert table updated to include patroller id#
 // // AJAX UPDATE
 
-// $('.update-patroller-id-on-alert-object').on('click', function() { 
-//   var patroller_id_to_add = {
-//     patroller_id: 3
-//   }
-//   $.ajax({
-//     method: 'PUT',
-//     dataType: 'json',
-//     data: {
-//       alert: patroller_id_to_add
-//     },
-//     url: '/alerts/3',
-//     success: function(add_patroller_id) {
-//       console.log(add_patroller_id)
-//     }
-//   })
-// });
+
 
 // // on button click, have alert table updated to have closed status / false alarm status
 // // AJAX UPDATE
 
-// $('.update-alert-state').on('click', function() { 
-//   var alarm = {
-//     false_alarm: true,
-//     state: 'closed'
-//   }
-//   $.ajax({
-//     method: 'PUT',
-//     dataType: 'json',
-//     data: {
-//       alert: alarm
-//     },
-//     url: '/alerts/3',
-//     success: function(data) {
-//       console.log(data)
-//     }
-//   })
-// });
+

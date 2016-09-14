@@ -20,27 +20,43 @@
     <table class="table alerts-table table-hover table-inverse">
         <thead>
           <tr>
-            <th>Alert Pin</th>
             <th>Name</th>
-            <th>False Alarm?</th>
-            <th>Alert Status</th>
             <th>Assigned Patroller ID</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody id="alert-body">
+          <div id="alertData"></div>
         </tbody>
       </table>
     </div>
   </div>
 </div>
 
+<script id="patroller-template" type="text/x-handlebars-template">
+  <li><a href="#" data-alert-id="{{alert_id}}" data-patroller-id="{{patroller_id}}" class="patroller-assignment">{{patroller_id}}, {{patroller_name}}</a></li>
+</script>
 
+<script id="alert-template" type="text/x-handlebars-template">
+  <tr>
+    <td><a href="/skiers/{{skier_id}}">{{skier_name}}</a></td>
+    <td><div class="dropdown"><button class="update-patroller-id-on-alert-object btn btn-primary dropdown-toggle" data-alert-id="{{alert_id}}" type="button" data-toggle="dropdown">Assign Patroller<span class="caret"></span></button>
+      <ul id="assignment-list-{{alert_id}}" class="dropdown-menu">
+      </ul>
+      </div>
+    </td>
+   <!--  <td><button data-alert-id="{{alert_id}}" class="update-patroller-id-on-alert-object dropbtn">Assign Patroller ID</button></td> -->
+    <!-- TODO  if patroller_id is null, render unassigned state (name, assignment dropdown,
+    false alarm button) ELSE render assigned state ( name, assigned patroller_id, false alarm button, resolved button-->
+    <td><button data-alert-id="{{alert_id}}" class="false-alarm-close btn btn-danger">False Alarm</button></td>
+    <td><button data-alert-id="{{alert_id}}" class="resolved-closed btn btn-danger">Resolved</button></td>
+  </tr>
+</script>
 
 <script>
 $(function(){
   getAlerts();
-  // setInterval(getAlerts, 5000);
+  // setInterval(getAlerts, 2000);  // TODO: Jeremy is crazy, set this back to 5000
 
   getPings();
   // setInterval(getPings, 5000);

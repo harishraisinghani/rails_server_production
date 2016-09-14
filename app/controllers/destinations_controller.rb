@@ -63,10 +63,15 @@ class DestinationsController < ApplicationController
 
   def get_all_active_alerts
     all_current_checkins = Destination.find(current_dispatcher.destination_id).checkins.where(checkout: nil)
+    all_on_shift_patrollers = Destination.find(current_dispatcher.destination_id).patrollers.where(on_shift: true)
     @active_alerts = []
     @alert_pings = []
     @skier_names = []
     @skier_ids = []
+    @on_shift_patrollers = []
+    all_on_shift_patrollers.each do |patroller|
+      @on_shift_patrollers << patroller
+    end
     all_current_checkins.each do |checkin|
       pings = checkin.pings
       pings.each do |ping|
@@ -79,7 +84,7 @@ class DestinationsController < ApplicationController
         end
       end
     end
-    render json: [@active_alerts, @alert_pings, @skier_names, @skier_ids]
+    render json: [@active_alerts, @alert_pings, @skier_names, @skier_ids, @on_shift_patrollers]
   end
 
   def get_all_recent_pings
