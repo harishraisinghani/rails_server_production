@@ -28,54 +28,54 @@ Patroller.import([:firstname, :lastname, :username, :password_digest, :on_shift,
   ["Robert", "Roto", "rabbit", "$2a$10$N/ZMGAmVGlmVploRFjjDKet5odJjgGO91k17qZaTd9InLW.Yq/pai", true, 1],
   ["John", "O'Hagen", "captain", "$2a$10$o4NTNtI5YCbZUiFXGzUL9eGDpNgx9/arQLV9E9pZ4nCwLcvg1UVf6", false, 1]
 ])
-Membership.import([:group_id, :skier_id], [
-  [1, 1],
-  [1, 2],
-  [1, 3],
-  [2, 4]
-])
+# Membership.import([:group_id, :skier_id], [
+#   [1, 1],
+#   [1, 2],
+#   [1, 3],
+#   [2, 4]
+# ])
+# Checkin.import([:checkout, :destination_id, :skier_id], [
+#   [nil, 4, 1],
+#   [nil, 4, 3],
+#   [nil, 4, 4]
+# ])
+# Ping.import([:lat, :long, :checkin_id],[
+#   [49.28010, -123.11527, 1],
+#   [49.28191, -123.10927, 2],
+#   [49.28209, -123.10527, 3]
+# ])
 Checkin.import([:checkout, :destination_id, :skier_id], [
+  ["2016-09-09 18:40:18", 4, 1],
+  ["2016-09-09 18:40:18", 4, 2],
+  ["2016-09-09 18:40:18", 4, 3],
+  ["2016-09-09 18:40:18", 4, 4],
+  ["2016-09-09 18:40:18", 4, 5],
+  ["2016-09-09 18:40:18", 4, 6],
+  ["2016-09-09 18:40:18", 1, 1],
+  ["2016-09-09 18:40:18", 1, 2],
+  ["2016-09-09 18:40:18", 1, 4],
   [nil, 4, 1],
   [nil, 4, 3],
-  [nil, 4, 4]
+  [nil, 4, 4],
+  [nil, 4, 5]
 ])
-Ping.import([:lat, :long, :checkin_id],[
-  [49.28010, -123.11527, 1],
-  [49.28191, -123.10927, 2],
-  [49.28209, -123.10527, 3]
+Ping.import([:lat, :long, :checkin_id], [
+  [49.272, -123.11827, 10],
+  [49.27159, -123.11527, 11],
+  [49.2801, -123.12027, 12],
+  [49.28191, -123.10927, 13],
+  [49.28188, -123.11127, 10],
+  [49.27691, -123.10727, 11],
+  [49.28175, -123.10627, 2],
+  [49.28209, -123.10527, 1]
 ])
-# Checkin.import([:checkout, :destination_id, :skier_id], [
-#   ["2016-09-09 18:40:18", 4, 1],
-#   ["2016-09-09 18:40:18", 4, 2],
-#   ["2016-09-09 18:40:18", 4, 3],
-#   ["2016-09-09 18:40:18", 4, 4],
-#   ["2016-09-09 18:40:18", 4, 5],
-#   ["2016-09-09 18:40:18", 4, 6],
-#   ["2016-09-09 18:40:18", 1, 1],
-#   ["2016-09-09 18:40:18", 1, 2],
-#   ["2016-09-09 18:40:18", 1, 4],
-#   [nil, 4, 2],
-#   [nil, 4, 3],
-#   [nil, 4, 4],
-#   [nil, 4, 5]
-# ])
-# Ping.import([:lat, :long, :checkin_id], [
-#   [49.272, -123.11827, 10],
-#   [49.27159, -123.11527, 11],
-#   [49.2801, -123.12027, 12],
-#   [49.28191, -123.10927, 13],
-#   [49.28188, -123.11127, 10],
-#   [49.27691, -123.10727, 11],
-#   [49.28175, -123.10627, 2],
-#   [49.28209, -123.10527, 1]
-# ])
-# Alert.import([:false_alarm, :user_generated, :state, :dispatcher_id, :patroller_id, :ping_id], [
-#   [nil, true, "active", 1, 1, 1],
-#   [nil, false, "inactive", 1, 1, 2],
-#   [nil, true, "active", 1, 2, 3],
-#   [nil, false, "active", 1, 3, 4],
-#   [true, true, "inactive", 1, 1, 5],
-#   [true, false, "inactive", 1, 1, 6],
-#   [nil, false, "inactive", 1, 2, 7],
-#   [nil, true, "inactive", 1, 3, 8]
-# ])
+Alert.import([:false_alarm, :user_generated, :state, :dispatcher_id, :patroller_id, :ping_id], [
+  [nil, true, "active", 1, 1, 1],
+  [nil, false, "inactive", 1, 1, 2],
+  [nil, true, "active", 1, 2, 3],
+  [nil, false, "active", 1, 3, 4],
+  [true, true, "inactive", 1, 1, 5],
+  [true, false, "inactive", 1, 1, 6],
+  [nil, false, "inactive", 1, 2, 7],
+  [nil, true, "inactive", 1, 3, 8]
+])
