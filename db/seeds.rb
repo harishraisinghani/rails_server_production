@@ -28,12 +28,12 @@ Patroller.import([:firstname, :lastname, :username, :password_digest, :on_shift,
   ["Robert", "Roto", "rabbit", "$2a$10$N/ZMGAmVGlmVploRFjjDKet5odJjgGO91k17qZaTd9InLW.Yq/pai", true, 1],
   ["John", "O'Hagen", "captain", "$2a$10$o4NTNtI5YCbZUiFXGzUL9eGDpNgx9/arQLV9E9pZ4nCwLcvg1UVf6", false, 1]
 ])
-# Membership.import([:group_id, :skier_id], [
-#   [1, 1],
-#   [1, 2],
-#   [1, 3],
-#   [2, 4]
-# ])
+Membership.import([:group_id, :skier_id], [
+  [1, 1],
+  [1, 2],
+  [1, 3],
+  [1, 4]
+])
 # Checkin.import([:checkout, :destination_id, :skier_id], [
 #   [nil, 4, 1],
 #   [nil, 4, 3],
