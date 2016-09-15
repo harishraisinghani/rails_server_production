@@ -24,7 +24,8 @@ class AlertsController < ApplicationController
   # POST /alerts
   # POST /alerts.json
   def create
-    @alert = Alert.new(alert_params)
+    current_dispatcher_id = Dispatcher.find_by(on_shift: true)
+    @alert = Alert.new(alert_params, state: "active", dispatcher_id: current_dispatcher_id)
 
     respond_to do |format|
       if @alert.save
