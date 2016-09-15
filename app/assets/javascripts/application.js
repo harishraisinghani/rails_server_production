@@ -15,7 +15,8 @@
 //= require turbolinks
 //= require_tree .
 
-var markers = {};
+var alertMarkers = {};
+var skierMarkers = {};
 
 function getAlerts() { 
   $.ajax({
@@ -92,11 +93,13 @@ function getPings() {
     dataType: 'json',
     url: 'https://skipatrolproductiondatabase.herokuapp.com/destinations/:id/pings',
     success: function(data) {
+      console.log(data)
       var pingLatLong = []
-      for (var i = 0; i < data.length; i++) {
+      for (var i = 0; i < data[0].length; i++) {
         var pingCoords = {
-          lat: data[i].lat,
-          long: data[i].long
+          lat: data[0][i].lat,
+          long: data[0][i].long,
+          skier_id: data[1][i]
         }
         pingLatLong.push(pingCoords);
       }
@@ -108,11 +111,11 @@ var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 
 function updateDispatchAlertPins(masterInfo) {
 
-  if (markers) {
-    for (var key in markers) {
-      markers[key].setMap(null);
+  if (alertMarkers) {
+    for (var key in alertMarkers) {
+      alertMarkers[key].setMap(null);
     }
-  markers = {};
+  alertMarkers = {};
   }; 
 
   masterInfo.forEach(function(record) {
@@ -124,10 +127,10 @@ function updateDispatchAlertPins(masterInfo) {
     var myMarker = new google.maps.Marker({
       position: alertCoord,
       map: SkiPals.map,
-      icon: iconBase + 'capital_big.png'
+      icon: iconBase + 'caution.png'
     });
     myMarker.alert_id = record.alert_id;
-    markers[record.alert_id] = myMarker;
+    alertMarkers[record.alert_id] = myMarker;
     myMarker.addListener('click', function() {
       infowindow.open(SkiPals.map, myMarker);
     });
@@ -135,6 +138,13 @@ function updateDispatchAlertPins(masterInfo) {
 }
 
 function updateDispatchSkierPins(pingLatLong) {
+  if (skierMarkers) {
+    for (var key in skierMarkers) {
+      skierMarkers[key].setMap(null);
+    }
+  skierMarkers = {};
+  }; 
+
   for (var i = 0; i < pingLatLong.length; i++) {
     var skierCoord = {lat: pingLatLong[i].lat, lng: pingLatLong[i].long};    
 
@@ -142,8 +152,10 @@ function updateDispatchSkierPins(pingLatLong) {
     var myMarker = new google.maps.Marker({
       position: skierCoord,
       map: SkiPals.map,
-      icon: iconBase + 'ski.png'
+      icon: iconBase + 'capital_big.png'
     });
+    myMarker.skier_id = pingLatLong.skier_id;
+    skierMarkers[pingLatLong.skier_id] = myMarker;
   }
 }
 

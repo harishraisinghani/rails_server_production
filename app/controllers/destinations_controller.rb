@@ -89,11 +89,13 @@ class DestinationsController < ApplicationController
 
   def get_all_recent_pings
     @recent_pings = []
+    @skier_ids = []
     destination_checkins = Checkin.where(destination_id: Dispatcher.find(session[:dispatcher_id]).destination_id, checkout: nil)
     destination_checkins.each do |checkin| 
       @recent_pings << checkin.pings.last 
+      @skier_ids << checkin.skier_id
     end
-    render json: @recent_pings
+    render json: [@recent_pings, @skier_ids]
   end
 
   private
