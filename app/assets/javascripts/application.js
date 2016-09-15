@@ -124,7 +124,7 @@ function updateDispatchAlertPins(masterInfo) {
     var myMarker = new google.maps.Marker({
       position: alertCoord,
       map: SkiPals.map,
-      icon: iconBase + 'caution.png'
+      icon: iconBase + 'capital_big.png'
     });
     myMarker.alert_id = record.alert_id;
     markers[record.alert_id] = myMarker;
