@@ -6,7 +6,7 @@ class Alert < ApplicationRecord
   validates :ping_id, presence: true
   validates :dispatcher_id, presence: true
 
-  before_create :set_patroller_default_value
+  before_save :set_patroller_default_value
 
   private
     def set_patroller_default_value
